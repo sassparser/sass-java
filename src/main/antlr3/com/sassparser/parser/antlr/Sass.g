@@ -6,17 +6,145 @@ options {
 }
 
 @lexer::header {
-package com.sassparser.parser;
+package com.sassparser.parser.antlr;
 }
 
 @parser::header {
-package com.sassparser.parser;
+package com.sassparser.parser.antlr;
+
+import com.sassparser.error.ErrorHandler;
+import com.sassparser.error.ErrorUtil;
 }
 
-SALUTATION:'Hello world';   
-ENDSYMBOL:'!';
+@members {
+    private ErrorHandler _errorHandler;
 
-expression : SALUTATION ENDSYMBOL;
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        _errorHandler = errorHandler;
+    }
+
+    @Override
+    public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        ErrorUtil.handleError(_errorHandler, e, this);
+    }
+}
+
+// ==============================================================
+// Parser
+// ==============================================================
+
+stylesheet
+	: WS* (bodyset WS*)* EOF
+	;
+
+bodyset
+	: ruleset
+	;
+
+ruleset
+	: ruleset_selector WS* LBRACE (WS* ruleset_element)* WS* RBRACE
+	;
+
+ruleset_selector
+	: font_face_selector
+	| selector_list
+	;
+
+font_face_selector
+	: '@' FONT_FACE
+	;
+
+selector_list
+	: selector (WS* COMMA WS* selector)*
+	;
+
+selector
+	: simple_selector
+	;
+
+simple_selector
+	: element_name (element_remain)*
+	| element_remain+
+	;
+
+element_name
+	: ident
+	| STAR
+	;
+
+element_remain
+	: HASH
+	| css_class
+	;
+
+css_class
+	: DOT ident
+	;
+
+ruleset_element
+	: declaration
+	;
+
+declaration
+	: property WS* COLON (WS* property_value (WS* prio)?)? WS* SEMICOLON
+	;
+
+property
+	: ident
+	;
+
+ident
+	: IDENT
+	;
+
+property_value
+	: property_term_no_expr ((property_term_sep | WS* SLASH WS*) property_term)*
+	;
+
+expression
+	: property_term_no_expr
+	;
+
+property_term_no_expr
+	: literal
+	;
+
+property_term_expr
+	: expr_value
+	;
+
+property_term_sep
+	: WS* COMMA WS*
+	| WS+
+	;
+
+property_term
+	: property_term_no_expr
+	| property_term_expr
+	;
+
+expr_value
+    : number_or_color
+    ;
+
+literal
+    : (STRING | URI | ident)
+    ;
+    
+prio
+	: IMPORTANT_SYM
+	;
+
+number_or_color
+	: number
+	| HASH
+	| RGB_COLOR
+	| HSL_COLOR
+	;
+
+number
+	: MINUS? NUMBER
+	;
 
 // ==============================================================
 // Lexer
@@ -234,7 +362,7 @@ RBRACKET : ']' ;
 
 RPAREN : ')' ;
 
-SEMI : ';' ;
+SEMICOLON : ';' ;
 
 SLASH : '/' ;
 
@@ -265,6 +393,10 @@ CDC
 		{
 			$channel = HIDDEN; 
 		}
+	;
+	
+FONT_FACE
+	: F O N T '-' F A C E
 	;
 
 STRING
