@@ -1,0 +1,8 @@
+*~
+*.swp
+.ant_targets
+.DS_Store
+.classpath
+.project
+
+/bin
