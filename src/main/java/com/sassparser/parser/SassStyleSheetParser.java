@@ -7,6 +7,8 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.Tree;
 
 import com.sassparser.error.ErrorHandler;
+import com.sassparser.factory.StyleSheetFactory;
+import com.sassparser.model.StyleSheet;
 import com.sassparser.parser.antlr.SassLexer;
 import com.sassparser.parser.antlr.SassParser;
 
@@ -23,7 +25,11 @@ public class SassStyleSheetParser implements StyleSheetParser {
 			StyleSheetResource styleSheetResource, ErrorHandler errorHandler)
 		throws Exception {
 
-		parse(styleSheetResource.getInputStream(), errorHandler);
+		Tree tree = parse(styleSheetResource.getInputStream(), errorHandler);
+
+		StyleSheet styleSheet = StyleSheetFactory.create(tree);
+
+		System.out.println(styleSheet);
 	}
 
 	protected Tree parse(InputStream inputStream, ErrorHandler errorHandler)
@@ -38,7 +44,9 @@ public class SassStyleSheetParser implements StyleSheetParser {
 
 		sassParser.setErrorHandler(errorHandler);
 
-		return (Tree)sassParser.stylesheet().getTree();
+		SassParser.stylesheet_return stylesheet = sassParser.stylesheet();
+
+		return (Tree)stylesheet.getTree();
 	}
 
 }
