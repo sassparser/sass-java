@@ -18,10 +18,8 @@ public class ErrorUtil {
 		 sb.append(
 			baseRecognizer.getErrorMessage(
 				recognitionException, baseRecognizer.getTokenNames()));
-		 sb.append(". Location: line ");
+		 sb.append(". Line ");
 		 sb.append(recognitionException.line);
-		 sb.append(", col ");
-		 sb.append(recognitionException.charPositionInLine);
 
 		 SassException sassException = new SyntacticException(
 			recognitionException);
