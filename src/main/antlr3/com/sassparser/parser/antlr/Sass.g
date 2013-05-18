@@ -5,6 +5,15 @@ options {
 	output = AST;
 }
 
+tokens {
+	DECLARATION;
+	EXPRESSION;
+	LITERAL;
+	PROPERTY_VALUE;
+	RULESET;
+	SELECTOR;
+}
+
 @lexer::header {
 package com.sassparser.parser.antlr;
 }
@@ -17,8 +26,6 @@ import com.sassparser.error.ErrorUtil;
 }
 
 @members {
-    private ErrorHandler _errorHandler;
-
     public void setErrorHandler(ErrorHandler errorHandler) {
         _errorHandler = errorHandler;
     }
@@ -27,6 +34,8 @@ import com.sassparser.error.ErrorUtil;
     public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
         ErrorUtil.handleError(_errorHandler, e, this);
     }
+
+    private ErrorHandler _errorHandler;
 }
 
 // ==============================================================
@@ -43,6 +52,7 @@ bodyset
 
 ruleset
 	: ruleset_selector WS* LBRACE (WS* ruleset_element)* WS* RBRACE
+		-> ^(RULESET ruleset_selector ruleset_element*)
 	;
 
 ruleset_selector
@@ -55,7 +65,7 @@ font_face_selector
 	;
 
 selector_list
-	: selector (WS* COMMA WS* selector)*
+	: selector (WS* COMMA WS* selector)* -> ^(SELECTOR selector+)
 	;
 
 selector
@@ -86,7 +96,8 @@ ruleset_element
 	;
 
 declaration
-	: property WS* COLON (WS* property_value (WS* prio)?)? WS* SEMICOLON
+	: property WS* COLON (WS* property_value (WS* prio)?)? WS* SEMICOLON 
+		-> ^(DECLARATION property ^(PROPERTY_VALUE property_value)? prio?)
 	;
 
 property
@@ -106,7 +117,7 @@ expression
 	;
 
 property_term_no_expr
-	: literal
+	: literal -> ^(LITERAL literal)
 	;
 
 property_term_expr
