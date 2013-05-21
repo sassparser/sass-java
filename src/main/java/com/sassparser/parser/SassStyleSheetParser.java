@@ -17,11 +17,13 @@ import com.sassparser.parser.antlr.SassParser;
  */
 public class SassStyleSheetParser implements StyleSheetParser {
 
-	public void parse(StyleSheetResource styleSheetResource) throws Exception {
-		parse(styleSheetResource, null);
+	public StyleSheet parse(StyleSheetResource styleSheetResource)
+		throws Exception {
+
+		return parse(styleSheetResource, null);
 	}
 
-	public void parse(
+	public StyleSheet parse(
 			StyleSheetResource styleSheetResource, ErrorHandler errorHandler)
 		throws Exception {
 
@@ -29,7 +31,7 @@ public class SassStyleSheetParser implements StyleSheetParser {
 
 		StyleSheet styleSheet = StyleSheetFactory.create(tree);
 
-		System.out.println(styleSheet);
+		return styleSheet;
 	}
 
 	protected Tree parse(InputStream inputStream, ErrorHandler errorHandler)

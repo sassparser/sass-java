@@ -1,15 +1,17 @@
 package com.sassparser.parser;
 
 import com.sassparser.error.ErrorHandler;
+import com.sassparser.model.StyleSheet;
 
 /**
  * @author Marcellus Tavares
  */
 public interface StyleSheetParser {
 
-	public void parse(StyleSheetResource styleSheetResource) throws Exception;
+	public StyleSheet parse(StyleSheetResource styleSheetResource)
+		throws Exception;
 
-	public void parse(
+	public StyleSheet parse(
 			StyleSheetResource styleSheetResource, ErrorHandler errorHandler)
 		throws Exception;
 
