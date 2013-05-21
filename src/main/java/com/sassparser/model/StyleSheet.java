@@ -1,6 +1,7 @@
 package com.sassparser.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,10 @@ public class StyleSheet extends Node {
 
 			ruleSetList.add(ruleSet);
 		}
+	}
+
+	public Collection<List<RuleSet>> getRuleSets() {
+		return _ruleSetMap.values();
 	}
 
 	private Map<Selector, List<RuleSet>> _ruleSetMap =

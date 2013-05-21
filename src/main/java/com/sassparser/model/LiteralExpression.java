@@ -6,6 +6,11 @@ public class LiteralExpression implements Expression {
 		_value = value;
 	}
 
+	@Override
+	public String toString() {
+		return _value;
+	}
+
 	private String _value;
 
 }

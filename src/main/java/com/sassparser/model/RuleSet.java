@@ -25,5 +25,9 @@ public class RuleSet {
 	private Map<String, Expression> _expressionMap =
 		new LinkedHashMap<String, Expression>();
 
+	public List<Declaration> getDeclarations() {
+		return _declarations;
+	}
+
 
 }

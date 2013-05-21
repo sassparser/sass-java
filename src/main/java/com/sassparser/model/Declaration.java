@@ -12,8 +12,20 @@ public class Declaration {
 		_property = property;
 	}
 
+	public String getProperty() {
+		return _property;
+	}
+
 	public void setValues(List<Object> values) {
 		_values = values;
+	}
+
+	public List<Object> getValues() {
+		return _values;
+	}
+
+	public boolean isImportant() {
+		return _important;
 	}
 
 	private boolean _important;
