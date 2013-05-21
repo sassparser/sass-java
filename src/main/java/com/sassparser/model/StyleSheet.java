@@ -6,7 +6,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StyleSheet extends Node {
+/**
+ * @author Marcellus Tavares
+ */
+public class StyleSheet {
 
 	public void add(RuleSet ruleSet) {
 		for (Selector selector : ruleSet.getSelectors()) {

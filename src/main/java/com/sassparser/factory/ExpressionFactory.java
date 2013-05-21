@@ -1,12 +1,14 @@
 package com.sassparser.factory;
 
-
 import org.antlr.runtime.tree.Tree;
 
 import com.sassparser.model.Expression;
 import com.sassparser.model.LiteralExpression;
 import com.sassparser.parser.antlr.SassLexer;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class ExpressionFactory {
 
 	public static Expression create(Tree tree) {

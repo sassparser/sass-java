@@ -7,6 +7,9 @@ import org.antlr.runtime.tree.Tree;
 import com.sassparser.model.Declaration;
 import com.sassparser.parser.antlr.SassLexer;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class DeclarationFactory {
 
 	public static Declaration create(Tree tree) {

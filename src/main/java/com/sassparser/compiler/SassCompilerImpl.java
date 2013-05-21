@@ -38,6 +38,7 @@ public class SassCompilerImpl implements SassCompiler {
 	}
 
 	private StyleSheetParser _styleSheetParser = new SassStyleSheetParser();
+
 	private StyleSheetWriter _styleSheetWriter = new StyleSheetWriterImpl();
 
 }

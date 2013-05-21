@@ -1,8 +1,9 @@
 package com.sassparser.model;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class Selector {
-
-	private String _text;
 
 	public String getText() {
 		return _text;
@@ -12,5 +13,6 @@ public class Selector {
 		_text = text;
 	}
 
+	private String _text;
 
 }

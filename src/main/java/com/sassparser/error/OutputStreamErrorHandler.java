@@ -13,8 +13,9 @@ public class OutputStreamErrorHandler implements ErrorHandler {
 
 	public void handle(String message, SassException sassException) {
 		try {
+			message = message.concat("\n");
+
 			_outputStream.write(message.getBytes());
-			_outputStream.write("\n".getBytes());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

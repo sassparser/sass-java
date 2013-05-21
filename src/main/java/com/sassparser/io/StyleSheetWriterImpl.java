@@ -11,6 +11,9 @@ import com.sassparser.model.RuleSet;
 import com.sassparser.model.Selector;
 import com.sassparser.model.StyleSheet;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class StyleSheetWriterImpl implements StyleSheetWriter {
 
 	public void write(StyleSheet styleSheet, OutputStream outputStream)
@@ -28,7 +31,6 @@ public class StyleSheetWriterImpl implements StyleSheetWriter {
 
 		writer.close();
 	}
-
 
 	protected void write(RuleSet ruleSet, Writer writer) throws Exception {
 		List<Selector> selectors = ruleSet.getSelectors();

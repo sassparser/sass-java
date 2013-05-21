@@ -6,6 +6,9 @@ import com.sassparser.model.RuleSet;
 import com.sassparser.model.StyleSheet;
 import com.sassparser.parser.antlr.SassLexer;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class StyleSheetFactory {
 
 	public static StyleSheet create(Tree tree) {

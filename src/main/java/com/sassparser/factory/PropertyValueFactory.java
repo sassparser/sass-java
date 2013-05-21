@@ -8,6 +8,9 @@ import org.antlr.runtime.tree.Tree;
 import com.sassparser.model.Expression;
 import com.sassparser.parser.antlr.SassLexer;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class PropertyValueFactory {
 
 	public static List<Object> create(Tree tree) {

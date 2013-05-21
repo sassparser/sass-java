@@ -4,6 +4,9 @@ import org.antlr.runtime.tree.Tree;
 
 import com.sassparser.model.Selector;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class SelectorFactory {
 
 	public static Selector create(Tree tree) {

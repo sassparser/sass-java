@@ -7,6 +7,9 @@ import com.sassparser.model.RuleSet;
 import com.sassparser.model.Selector;
 import com.sassparser.parser.antlr.SassLexer;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class RuleSetFactory {
 
 	public static RuleSet create(Tree tree) {

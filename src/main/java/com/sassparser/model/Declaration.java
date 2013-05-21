@@ -2,6 +2,9 @@ package com.sassparser.model;
 
 import java.util.List;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class Declaration {
 
 	public void setImportant(boolean important) {

@@ -5,6 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class RuleSet {
 
 	public void add(Declaration declaration) {
@@ -19,15 +22,14 @@ public class RuleSet {
 		return _selectors;
 	}
 
-	private List<Declaration> _declarations = new ArrayList<Declaration>();
-	private List<Selector> _selectors = new ArrayList<Selector>();
-
-	private Map<String, Expression> _expressionMap =
-		new LinkedHashMap<String, Expression>();
-
 	public List<Declaration> getDeclarations() {
 		return _declarations;
 	}
 
+	private Map<String, Expression> _expressionMap =
+		new LinkedHashMap<String, Expression>();
+
+	private List<Declaration> _declarations = new ArrayList<Declaration>();
+	private List<Selector> _selectors = new ArrayList<Selector>();
 
 }

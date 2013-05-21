@@ -1,5 +1,8 @@
 package com.sassparser.model;
 
+/**
+ * @author Marcellus Tavares
+ */
 public class LiteralExpression implements Expression {
 
 	public LiteralExpression(String value) {
