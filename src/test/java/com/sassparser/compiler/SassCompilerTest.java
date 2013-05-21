@@ -34,7 +34,9 @@ public class SassCompilerTest extends TestCase {
 
 		ErrorHandler errorHandler = new OutputStreamErrorHandler(System.err);
 
-		_saasCompiler.compile(styleSheetResource, errorHandler);
+		String css = _saasCompiler.compile(styleSheetResource, errorHandler);
+
+		System.out.println(css);
 	}
 
 	private SassCompiler _saasCompiler;
