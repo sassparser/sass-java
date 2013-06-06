@@ -69,13 +69,23 @@ selector_list
 	;
 
 selector
-	: simple_selector
+	: simple_selector (combinator simple_selector)*
 	;
 
 simple_selector
 	: element_name (element_remain)*
 	| element_remain+
 	;
+
+combinator
+    : WS* combinator_no_ws WS*
+    | WS+
+    ;
+    
+combinator_no_ws
+    : PLUS
+    | GREATER
+    ;
 
 element_name
 	: ident
@@ -85,8 +95,33 @@ element_name
 element_remain
 	: HASH
 	| css_class
+	| attribute
+	| pseudo
 	;
 
+attribute
+    : LBRACKET WS* ident (WS* attribute_operation WS* (ident | STRING | number))? WS* RBRACKET
+    ;
+    
+attribute_operation
+    : EQUAL
+    | INCLUDES
+    | DASH_MATCH
+    | START_MATCH
+    | END_MATCH
+    | SUBSTR_MATCH
+    ;
+
+pseudo
+    : COLON COLON? ident (LPAREN WS* pseudo_arg WS* RPAREN)?
+    ;
+    
+pseudo_arg
+    : number
+    | (ident | number) WS* (PLUS | MINUS) WS* number
+    | selector
+    ;
+    
 css_class
 	: DOT ident
 	;
@@ -110,6 +145,20 @@ ident
 
 property_value
 	: property_term_no_expr ((property_term_sep | WS* SLASH WS*) property_term)*
+	| additive_expr -> ^(EXPRESSION additive_expr)
+	;
+
+additive_expr
+	: multiplicative_expr (WS* (PLUS | MINUS)^ WS* multiplicative_expr)*
+	;
+
+multiplicative_expr
+	: unary_expr (WS* (STAR | SLASH)^ WS* unary_expr)*
+	;
+
+unary_expr
+	: (LPAREN WS*) additive_expr (WS* RPAREN)
+	| expr_value
 	;
 
 expression
@@ -121,7 +170,7 @@ property_term_no_expr
 	;
 
 property_term_expr
-	: expr_value
+	: expr_value -> ^(EXPRESSION expr_value)
 	;
 
 property_term_sep
@@ -347,11 +396,15 @@ COLON : ':' ;
 
 COMMA : ',' ;
 
+DASH_MATCH : '|=' ;
+
 DOT : '.' ;
 
 END_MATCH : '$=' ;
 
 GREATER : '>' ;
+
+INCLUDES : '~=' ;
 
 LBRACE : '{' ;
 
